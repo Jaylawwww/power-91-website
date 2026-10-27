@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Power 91 — Live from {{ stationCity }}{% endblock %}
+
+{% block body %}
+<section class="hero">
+    <div class="hero-panel">
+        <div class="shell hero-copy">
+            <p class="hero-kicker">{{ stationCity }}</p>
+            <h1>Music from every decade, still loud enough for the boulevard.</h1>
+            <p class="lede">Power 91 is Dumaguete’s variety station: hits, deep cuts, requests, and hosts who actually live in the city.</p>
+            <div class="hero-actions">
+                <a class="play-btn play-btn--hero" href="#live-player">Listen live</a>
+                <a class="ghost-link" href="{{ path('schedule') }}">See the program schedule</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="spotlight">
+    <div class="shell spotlight-grid">
+        <article class="spotlight-card">
+            <p class="eyebrow">On air now</p>
+            <h2>{{ onAir.title }}</h2>
+            <p>{{ onAir.host }} · {{ onAir.genre }}</p>
+            <p class="muted">{{ onAir.windowLabel() }} · Studio clock {% include 'station/_clock.html.twig' with {with_zone: true} %}</p>
+        </article>
+        <article class="spotlight-card">
+            <p class="eyebrow">Today’s board</p>
+            <h2>{{ todaySlots|length }} shows on the clock</h2>
+            <p>Live from {{ timezoneLabel }}. Overnight hours stay in the mix when the studio is dark.</p>
+            <a class="text-link" href="{{ path('schedule') }}">Open the full grid</a>
+        </article>
+        <article class="spotlight-card">
+            <p class="eyebrow">Talk to the studio</p>
+            <h2>Request a song</h2>
+            <p>Dedications, advertising, and the track you need before the drive is over.</p>
+            <a class="text-link" href="{{ path('contact') }}">Write the board</a>
+        </article>
+    </div>
+</section>
+
+<section class="section" id="program-schedule">
+    <div class="shell">
+        <div class="section-head section-head--center">
+            <h2>Program Schedule</h2>
+            <p>A format that can hold a Motown opener and a brand-new chorus in the same hour — built for Dumaguete, not a national template.</p>
+        </div>
+        <div class="program-grid">
+            {% for show in shows %}
+                <article class="program-card">
+                    <div class="program-art" aria-hidden="true">
+                        <span>{{ show.when }}</span>
+                        <strong>{{ show.title }}</strong>
+                    </div>
+                    <div class="program-body">
+                        <h3>{{ show.title }}</h3>
+                        <p class="muted">{{ show.hosts }} · {{ show.when }}</p>
+                        <p>{{ show.description }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section--band">
+    <div class="shell">
+        <div class="section-head section-head--center">
+            <h2>Around Dumaguete</h2>
+            <p>The mix is built for work, traffic, and the hours after — Boulevard to Valencia, on {{ timezoneLabel }}.</p>
+        </div>
+        <div class="logo-row">
+            {% for spot in coastSpots %}
+                <article class="logo-tile">
+                    <strong>{{ spot.name }}</strong>
+                    <span>{{ spot.note }}</span>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell">
+        <div class="section-head section-head--center">
+            <h2>Ways to stay with the station</h2>
+            <p>The live player at the top of every page is the shortest path to the board. The rest of the site is the grid, the team, and the request line.</p>
+        </div>
+        <div class="logo-row logo-row--partners">
+            {% for way in listenWays %}
+                <article class="logo-tile logo-tile--ghost">
+                    <strong>{{ way.name }}</strong>
+                    <span>{{ way.note }}</span>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Power 91 — Your Music Variety Station{% endblock %}</title>
+        <meta name="description" content="{% block description %}Power 91 is Dumaguete's music variety station, broadcasting from {{ stationCity }} with hits from every decade.{% endblock %}">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><rect width=%22128%22 height=%22128%22 rx=%2220%22 fill=%22%23101833%22/><text y=%2290%22 x=%2218%22 font-size=%2270%22 font-family=%22Arial Black,sans-serif%22 fill=%22%23d4a017%22>91</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-
         {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
         {% if frankenphp_hot_reload %}
         <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
@@ -19,6 +21,57 @@
         {% endif %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <a class="skip-link" href="#main">Skip to content</a>
+        <header class="site-header" data-controller="nav">
+            <div class="shell header-bar">
+                <a class="brand" href="{{ path('home') }}">
+                    <span class="brand-badge" aria-hidden="true">91</span>
+                    <span class="brand-copy">
+                        <span class="brand-mark">Power 91</span>
+                        <span class="brand-tag">{{ stationTagline }}</span>
+                    </span>
+                </a>
+                <button class="nav-toggle" type="button" data-nav-target="toggle" data-action="nav#toggle" aria-expanded="false" aria-controls="site-nav">
+                    Menu
+                </button>
+                <nav id="site-nav" class="site-nav" data-nav-target="menu" aria-label="Station">
+                    <a href="{{ path('home') }}" class="{{ app.request.attributes.get('_route') == 'home' ? 'is-active' }}">Home</a>
+                    <a href="{{ path('schedule') }}" class="{{ app.request.attributes.get('_route') == 'schedule' ? 'is-active' }}">Program Schedule</a>
+                    <a href="{{ path('team') }}" class="{{ app.request.attributes.get('_route') == 'team' ? 'is-active' }}">On-air Team</a>
+                    <a href="{{ path('about') }}" class="{{ app.request.attributes.get('_route') == 'about' ? 'is-active' }}">About</a>
+                    <a href="{{ path('contact') }}" class="{{ app.request.attributes.get('_route') == 'contact' ? 'is-active' }}">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        {% include 'station/_player.html.twig' %}
+
+        <main id="main">
+            {% for message in app.flashes('success') %}
+                <div class="flash shell">{{ message }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="shell footer-grid">
+                <div>
+                    <p class="footer-brand">Power 91</p>
+                    <p>{{ stationTagline }}</p>
+                    <p>Broadcasting from {{ stationCity }}.</p>
+                </div>
+                <div>
+                    <h2 class="footer-label">Contact Us</h2>
+                    <p>Tel: {{ studioLine }}</p>
+                    <p>{{ studioHours }}</p>
+                    <p><a href="{{ path('contact') }}">Send a request or studio note</a></p>
+                </div>
+                <div>
+                    <h2 class="footer-label">Our Station Address</h2>
+                    <p>{{ studioAddress }}</p>
+                    <p>{{ timezoneLabel }} · Stream on every page</p>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

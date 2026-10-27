@@ -1,0 +1,7 @@
+{% set clockFormat = with_zone|default(false) ? 'g:i:s A T' : 'g:i:s A' %}
+<span
+    class="{{ class|default('live-clock') }}"
+    data-controller="clock"
+    data-clock-timezone-value="{{ stationTimezone }}"
+    data-clock-with-zone-value="{{ with_zone|default(false) ? 'true' : 'false' }}"
+>{{ 'now'|date(clockFormat, stationTimezone) }}</span>

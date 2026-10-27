@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About — Power 91{% endblock %}
+
+{% block body %}
+<section class="page-hero">
+    <div class="shell">
+        <p class="eyebrow">The station</p>
+        <h1>Variety, from Dumaguete, for anybody still listening like it matters</h1>
+        <p class="lede">Power 91 is Dumaguete’s music variety station: decades of records, local hosts, and a stream that follows you around the city.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell about-grid">
+        <article class="card">
+            <h2>The format</h2>
+            <p>We do not pretend one decade owns Dumaguete. The hour can move from soul to country to a current hit without a format apology, as long as the next song earns it.</p>
+        </article>
+        <article class="card">
+            <h2>The studio</h2>
+            <p>Programming originates in {{ stationCity }}, on {{ timezoneLabel }}. Weekdays run from Morning Power through Night Frequency. Weekends open up for flashbacks, requests, and longer album plays.</p>
+        </article>
+        <article class="card">
+            <h2>The stream</h2>
+            <p>Listen live from the bar at the top of every page. Tap Listen live when the encoder is up and the station is on the air.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section section--band">
+    <div class="shell profile-table-wrap">
+        <div class="section-head section-head--center">
+            <h2>Station profile</h2>
+            <p>Who we are on paper: the format, the city, and the clock the live player follows.</p>
+        </div>
+        <table class="profile-table">
+            <tbody>
+                <tr>
+                    <th>Genre</th>
+                    <td>Music variety: hits, gold, requests, and local talk</td>
+                </tr>
+                <tr>
+                    <th>Period</th>
+                    <td>1970s through this week, as long as the chorus holds</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ stationCity }}</td>
+                </tr>
+                <tr>
+                    <th>Clock</th>
+                    <td>{{ studioHours }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -15,6 +15,9 @@
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="APP_SECRET" value="test" force="true" />
+        <server name="RADIO_STREAM_URL" value="" force="true" />
+        <server name="RADIO_REQUEST_INBOX" value="requests@localhost" force="true" />
     </php>
 
     <testsuites>

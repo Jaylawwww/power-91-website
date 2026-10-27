@@ -1,0 +1,3 @@
+frankenphp/docker-entrypoint.sh text eol=lf
+frankenphp/Caddyfile text eol=lf
+Dockerfile text eol=lf

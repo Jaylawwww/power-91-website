@@ -1,0 +1,32 @@
+<div
+    id="live-player"
+    class="live-player"
+    data-turbo-permanent
+    data-controller="player"
+    data-player-now-playing-url-value="{{ path('now_playing') }}"
+>
+    <div class="shell player-bar">
+        <div class="on-air">
+            <span class="pulse" aria-hidden="true"></span>
+            <span class="on-air-copy">
+                <strong data-player-target="title">{{ onAir.title }}</strong>
+                <span data-player-target="host">{{ onAir.host }} · {{ onAir.windowLabel() }}</span>
+            </span>
+        </div>
+        <div class="player-actions">
+            {% include 'station/_clock.html.twig' with {class: 'player-clock', with_zone: true} %}
+            <span class="player-status" data-player-target="status">{{ streamUrl ? 'Ready to stream' : 'Add a stream URL to go live' }}</span>
+            <button class="play-btn" type="button" data-player-target="button" data-action="player#toggle">
+                Listen live
+            </button>
+        </div>
+        {% if streamUrl %}
+            <audio
+                data-player-target="audio"
+                data-action="ended->player#ended error->player#error"
+                preload="none"
+                src="{{ streamUrl }}"
+            ></audio>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Program Schedule — Power 91{% endblock %}
+
+{% block body %}
+<section class="page-hero">
+    <div class="shell">
+        <p class="eyebrow">Program grid</p>
+        <h1>What’s on Power 91</h1>
+        <p class="lede">Times are {{ timezoneLabel }}. The live strip at the top of the site follows this same clock.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell schedule-grid">
+        {% for day in grid %}
+            <article class="schedule-day {{ day.weekday == today ? 'is-today' }}">
+                <h2>{{ day.name }}{% if day.weekday == today %} <span>Today</span>{% endif %}</h2>
+                <ul>
+                    {% for slot in day.slots %}
+                        <li>
+                            <span>{{ slot.windowLabel() }}</span>
+                            <strong>{{ slot.title }}</strong>
+                            <em>{{ slot.host }} · {{ slot.genre }}</em>
+                        </li>
+                    {% endfor %}
+                    {% if day.slots is empty %}
+                        <li><strong>Power 91 Mix</strong><em>The station playlist holds the overnight.</em></li>
+                    {% endif %}
+                </ul>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

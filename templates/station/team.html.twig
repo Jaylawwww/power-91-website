@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}On-air Team — Power 91{% endblock %}
+
+{% block body %}
+<section class="page-hero">
+    <div class="shell">
+        <p class="eyebrow">The voices</p>
+        <h1>Hosts who can let a record breathe</h1>
+        <p class="lede">Power 91 is a variety station, which only works if the people on the mic know when to talk and when to get out of the way.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell host-grid">
+        {% for host in hosts %}
+            <article class="host-card">
+                <span class="avatar avatar--lg" style="--accent: {{ host.accent }}">{{ host.initials }}</span>
+                <p class="eyebrow">{{ host.role }}</p>
+                <h2>{{ host.name }}</h2>
+                <p class="muted">{{ host.show }}</p>
+                <p>{{ host.bio }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
